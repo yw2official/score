@@ -1,0 +1,34 @@
+[workspace]
+authors = ["yw2official <172609385+yw2official@users.noreply.github.com>"]
+channels = ["https://mirrors.tuna.tsinghua.edu.cn/anaconda/cloud/conda-forge/"]
+name = "score"
+platforms = ["linux-64"]
+version = "0.1.0"
+
+[tasks]
+train = "python train.py"
+train-bert = "python train_bert.py"
+batch = "python predict_batch.py"
+app = "python app.py"
+predict = { cmd = "python -c \"from app import *; import sys; print(__import__('pickle').load(open('models/model.pkl','rb')).predict([__import__('preprocess').preprocess_pdf(sys.argv[1])])[0])\"", description = "Quick CLI predict: pixi run predict <file.pdf>" }
+
+[dependencies]
+python = ">=3.14.4,<3.15"
+scikit-learn = ">=1.8.0,<2"
+pandas = ">=3.0.2,<4"
+numpy = ">=2.4.3,<3"
+pymupdf = ">=1.27.2.2,<2"
+gradio = ">=3.24.1,<4"
+jieba = ">=0.42.1,<0.43"
+imbalanced-learn = ">=0.14.1,<0.15"
+
+
+
+[pypi-dependencies]
+anthropic = ">=0.40,<1"
+torch = ">=2.4,<3"
+transformers = ">=4.40,<5"
+
+[pypi-options]
+index-url = "https://pypi.tuna.tsinghua.edu.cn/simple"
+extra-index-urls = ["https://mirrors.tuna.tsinghua.edu.cn/pypi/web/simple"]
